@@ -285,8 +285,9 @@ public:
 		// Functions that deal with files (implemented in rendererFiles.cpp)
 		////////////////////////////////////////////////////////////////////
 		static	void			initFiles();
+		static	int				normalizeFileName(char *name);
 		static	int				locateFileEx(char *,const char *,const char *extension=NULL,TSearchpath *search=NULL);
-		static	int				locateFile(char *,const char *,TSearchpath *search=NULL);
+		static	int				locateFile(char *,const char *,TSearchpath *search=NULL,int tryNormalize=FALSE);
 		
 		static	void			initTextures(int);										// Set the maximum texture memory and init texturing		
 		static	CTexture		*textureLoad(const char *,TSearchpath *);				// Load a new texture map

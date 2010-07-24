@@ -4435,7 +4435,7 @@ void	CRendererContext::RiReadArchiveV(const char *filename,void (*callback)(cons
 		COptions	*options	=	getOptions(FALSE);
 
 		// Try locating the file
-		if (CRenderer::locateFile(tmp,filename,options->archivePath)) {
+		if (CRenderer::locateFile(tmp,filename,options->archivePath,TRUE)) {
 
 			// Success, parse the file
 			ribParse(tmp,callback);
@@ -4454,7 +4454,13 @@ void	*CRendererContext::RiArchiveBeginV(const char *name,int n,const char *token
 
 	char	fileName[OS_MAX_PATH_LENGTH];
 	strcpy(fileName,CRenderer::temporaryPath);
-	strcat(fileName,name);
+
+	char	normalizedName[OS_MAX_PATH_LENGTH];
+	strcpy(normalizedName,name);
+	CRenderer::normalizeFileName(normalizedName);
+
+	// Concatenate the file names
+	strcat(fileName,normalizedName);
 
 	// Save the interface
 	savedRenderMan	=	renderMan;

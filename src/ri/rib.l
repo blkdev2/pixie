@@ -167,7 +167,8 @@ ReadArchive[ \t]*\"[^\"]*\"							{
 
 														options		=	CRenderer::context->getOptions();
 
-														if (CRenderer::locateFile(location,fileName,options->archivePath) == TRUE) {
+														// Look for the file at the usual locations
+														if (CRenderer::locateFile(location,fileName,options->archivePath,TRUE) == TRUE) {
 															FILE	*in;
 
 															info(CODE_RESOLUTION,"\"%s\" -> \"%s\"\n",fileName,location);

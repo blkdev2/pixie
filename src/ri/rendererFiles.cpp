@@ -139,11 +139,33 @@ int			CRenderer::locateFileEx(char *result,const char *name,const char *extensio
 
 ///////////////////////////////////////////////////////////////////////
 // Class				:	CRenderer
+// Method				:	normalizeFileName
+// Description			:	Make sure there are no funny characters in the name
+// Return Value			:	TRUE if found
+// Comments				:
+int	CRenderer::normalizeFileName(char *name) {
+	int	normalized	=	FALSE;
+
+	// Normalize the file name
+	for (;*name!='\0';++name) {
+		if ((*name == '/') || (*name == '\\')) {
+			*name		=	'_';
+			normalized	=	TRUE;
+		}
+	}
+
+	// return value
+	return normalized;
+}
+
+
+///////////////////////////////////////////////////////////////////////
+// Class				:	CRenderer
 // Method				:	locateFile
 // Description			:	Locate a file on disk
 // Return Value			:	TRUE if found
 // Comments				:
-int	CRenderer::locateFile(char *result,const char *name,TSearchpath *searchpath) {
+int	CRenderer::locateFile(char *result,const char *name,TSearchpath *searchpath,int tryNormalize) {
 
 	if (netClient != INVALID_SOCKET) {
 		// check netfile mappings
@@ -155,31 +177,31 @@ int	CRenderer::locateFile(char *result,const char *name,TSearchpath *searchpath)
 	
 	if (strchr(name,OS_DIR_SEPERATOR)) {
 		// Supplied path
-	// Check if the file exists
-	if (osFileExists(name)) {
-		strcpy(result,name);
-		info(CODE_RESOLUTION,"\"%s\" -> \"%s\"\n",name,name);
-		return TRUE;
-	}
+		// Check if the file exists
+		if (osFileExists(name)) {
+			strcpy(result,name);
+			info(CODE_RESOLUTION,"\"%s\" -> \"%s\"\n",name,name);
+			return TRUE;
+		}
 	} else {
 		// Only filename
-	// Look at the search path
-	for (;searchpath!=NULL;searchpath=searchpath->next) {
-		sprintf(result,"%s%s",searchpath->directory,name);
+		// Look at the search path
+		for (;searchpath!=NULL;searchpath=searchpath->next) {
+			sprintf(result,"%s%s",searchpath->directory,name);
+			osFixSlashes(result);
+			if (osFileExists(result)) {
+				info(CODE_RESOLUTION,"\"%s\" -> \"%s\"\n",name,result);
+				return TRUE;
+			}
+		}
+
+		// Last resort, look into the temporary directory
+		sprintf(result,"%s%s",temporaryPath,name);
 		osFixSlashes(result);
 		if (osFileExists(result)) {
 			info(CODE_RESOLUTION,"\"%s\" -> \"%s\"\n",name,result);
 			return TRUE;
 		}
-	}
-
-	// Last resort, look into the temporary directory
-	sprintf(result,"%s%s",temporaryPath,name);
-	osFixSlashes(result);
-	if (osFileExists(result)) {
-		info(CODE_RESOLUTION,"\"%s\" -> \"%s\"\n",name,result);
-		return TRUE;
-	}
 	}
 
 	// Unable to find the file, check the network
@@ -199,6 +221,18 @@ int	CRenderer::locateFile(char *result,const char *name,TSearchpath *searchpath)
 
 		// Unlock the network
 		osUnlock(networkMutex);
+	}
+
+	// Should we check normalized?
+	if (tryNormalize) {
+		char	normalizedName[OS_MAX_PATH_LENGTH];
+
+		// Normalize the file name
+		strcpy(normalizedName,name);
+		CRenderer::normalizeFileName(normalizedName);
+
+		// Search again
+		return locateFile(result,normalizedName,searchpath,FALSE);
 	}
 
 	info(CODE_RESOLUTION,"\"%s\" -> ???\n",name);
