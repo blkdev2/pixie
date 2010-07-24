@@ -355,7 +355,7 @@ void		CAttributes::restore(const CAttributes *other,int shading,int geometrymodi
 		exterior		=	other->exterior;		if (exterior != NULL)		exterior->attach();
 
 		movvv(surfaceColor,other->surfaceColor);
-		movvv(surfaceColor,other->surfaceColor);
+		movvv(surfaceOpacity,other->surfaceOpacity);
 
 		// Delete the light sources
 		CActiveLight	*cLight;
