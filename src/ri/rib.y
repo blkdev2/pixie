@@ -2940,7 +2940,7 @@ void	ribParse(const char *fileName,void (*c)(const char *,...)) {
 		
 		if (ribin != NULL) {
 #ifdef HAVE_ZLIB
-			gzclose(ribin);
+			gzclose((gzFile) ribin);
 #else
 			fclose(ribin);
 #endif

@@ -163,7 +163,7 @@ CRibOut::~CRibOut() {
 
 #ifdef HAVE_ZLIB
 			if (outputCompressed) {
-				gzclose(outFile);
+				gzclose((gzFile) outFile);
 			} else {
 				fclose(outFile);
 			}

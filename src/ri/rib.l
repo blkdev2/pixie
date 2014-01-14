@@ -17,7 +17,7 @@ static	TRibFile	*ribStack	=	NULL;
 
 // Overwrite the YYinput so that it uses libz
 #undef YY_INPUT
-#define YY_INPUT(buf, retval, maxlen)	if ( (retval = gzread(ribin,buf,maxlen)) < 0) 			\
+#define YY_INPUT(buf, retval, maxlen)	if ( (retval = gzread((gzFile) ribin,buf,maxlen)) < 0) 			\
 											YY_FATAL_ERROR( "input in flex scanner failed" );
 
 #endif
@@ -224,7 +224,7 @@ version												return RIB_VERSION;
 															TRibFile	*nextFile	=	ribStack->next;
 															rib_delete_buffer( YY_CURRENT_BUFFER );
 #ifdef HAVE_ZLIB
-															gzclose(ribin);
+															gzclose((gzFile) ribin);
 #else
 															fclose(ribin);
 #endif
@@ -244,7 +244,7 @@ version												return RIB_VERSION;
 															rib_delete_buffer( YY_CURRENT_BUFFER );
 															
 #ifdef HAVE_ZLIB
-															gzclose(ribin);
+															gzclose((gzFile) ribin);
 #else
 															fclose(ribin);
 #endif
