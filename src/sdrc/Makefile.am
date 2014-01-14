@@ -4,7 +4,7 @@ sdrc_SOURCES = sdrc.cpp dso.cpp expression.cpp opcodes.cpp sdr.cpp sl.cpp pp1.c 
 sdrc_LDADD = ../common/libpixiecommon.la
 
 # ri is only included for ri_config.h, which seems to be included by dso,y
-INCLUDES = -I.. -I../ri
+AM_CPPFLAGS = -I.. -I../ri
 
 BUILT_SOURCES =
 

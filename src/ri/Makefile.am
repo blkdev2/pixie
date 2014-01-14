@@ -80,7 +80,7 @@ libri_la_SOURCES = 		attributes.cpp \
 
 libri_la_LIBADD = ../common/libpixiecommon.la @TIFF_LIBS@ @ZLIB_LIBS@
 
-INCLUDES = -I..
+AM_CPPFLAGS = -I..
 
 includedir = $(prefix)/include
 

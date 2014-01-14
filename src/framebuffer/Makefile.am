@@ -7,5 +7,5 @@ framebuffer_la_LIBADD = ../common/libpixiecommon.la @X_LIBS@
 framebuffer_la_LDFLAGS = -module -avoid-version @X_LDFLAGS@
 framebuffer_la_CXXFLAGS = @X_CFLAGS@
 
-INCLUDES = -I..
+AM_CPPFLAGS = -I..
 

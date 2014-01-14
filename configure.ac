@@ -3,11 +3,12 @@ dnl
 dnl    Pixie configure.in file
 dnl
 dnl
-AC_INIT(src/common/global.h)
-AM_INIT_AUTOMAKE(Pixie,2.2.6)
+AC_INIT([Pixie], [2.2.6])
+AC_CONFIG_SRCDIR([src/common/global.h])
+AM_INIT_AUTOMAKE
 AM_CONFIG_HEADER(config.h)
 AC_PREFIX_DEFAULT(/opt/pixie)
-
+AC_CONFIG_MACRO_DIR([m4])
 
 dnl ---------------------------------------------------
 dnl Check the compiler/programs

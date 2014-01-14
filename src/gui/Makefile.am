@@ -15,5 +15,5 @@ gui_la_LIBADD = ../common/libpixiecommon.la @X_LIBS@
 gui_la_CXXFLAGS = $(AM_CXXFLAGS) @X_CFLAGS@ @FLTK_CXXFLAGS@
 gui_la_LDFLAGS = -module -avoid-version @FLTK_LDFLAGS@ @X_LDFLAGS@
 
-INCLUDES = -I..
+AM_CPPFLAGS = -I..
 

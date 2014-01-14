@@ -10,7 +10,7 @@ libsdr_la_SOURCES = sdr.cpp
 
 libsdr_la_LIBADD = ../common/libpixiecommon.la
 
-INCLUDES = -I..
+AM_CPPFLAGS = -I..
 
 includedir = $(prefix)/include
 

@@ -8,5 +8,5 @@ show_SOURCES = show.cpp
 
 show_LDADD = ../common/libpixiecommon.la ../ri/libri.la
 
-INCLUDES = -I..
+AM_CPPFLAGS = -I..
 

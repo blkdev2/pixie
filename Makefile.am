@@ -1,3 +1,5 @@
+ACLOCAL_AMFLAGS = -I m4
+
 SUBDIRS = src doc
 
 man_MANS = man/rndr.1 man/sdrc.1 man/sdrinfo.1 man/texmake.1
