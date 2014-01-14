@@ -32,6 +32,9 @@ Makefile
 Makefile.in
 config.h
 config.h.in
+stamp-h1
+INSTALL
+depcomp
 
 /src/precomp/precomp
 /src/rndr/rndr
