@@ -164,7 +164,7 @@ dnl ---------------------------------------------------
 dnl Check system/headers
 dnl
 AC_HEADER_STDC
-AC_CHECK_HEADERS(fcntl.h limits.h malloc.h sys/time.h unistd.h)
+AC_CHECK_HEADERS([fcntl.h limits.h malloc.h sys/time.h unistd.h])
 
 AC_C_CONST
 AC_C_INLINE
@@ -180,7 +180,7 @@ dnl Check for bison and flex
 dnl
 
 dnl I am intentionally not using AC_PROG_LEX and AC_PROG_YACC here
-dnl we have never tested with lex / yacc, and they probably won't work
+dnl we have never tested with lex / yacc, and they probably won't work '
 
 AC_PATH_PROG(FLEX,flex,false)
 AM_CONDITIONAL(HAVE_FLEX, test "x$FLEX" != xfalse )
@@ -323,7 +323,8 @@ AC_DEFINE_DIR(PIXIE_MODULES,modulesdir,[Directory where we store modules])
 dnl ---------------------------------------------------
 dnl Write the output
 dnl
-AC_OUTPUT(Makefile doc/Makefile src/Makefile src/common/Makefile src/file/Makefile src/framebuffer/Makefile src/openexr/Makefile src/gui/Makefile src/precomp/Makefile src/rgbe/Makefile src/sdr/Makefile src/sdrc/Makefile src/ri/Makefile src/rndr/Makefile src/texmake/Makefile src/sdrinfo/Makefile src/show/Makefile)
+AC_CONFIG_FILES([Makefile doc/Makefile src/Makefile src/common/Makefile src/file/Makefile src/framebuffer/Makefile src/openexr/Makefile src/gui/Makefile src/precomp/Makefile src/rgbe/Makefile src/sdr/Makefile src/sdrc/Makefile src/ri/Makefile src/rndr/Makefile src/texmake/Makefile src/sdrinfo/Makefile src/show/Makefile])
+AC_OUTPUT
 
 if test "x$have_x11" != "xtrue"; then
 echo "------------------------------------------------"
