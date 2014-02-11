@@ -151,7 +151,7 @@ typedef union {
 
 // Include the global config file if available
 #ifdef HAVE_CONFIG_H
-	#include "../../config.h"
+	#include "config.h"
 #else
 
 	// Are we running under Visual Studio?

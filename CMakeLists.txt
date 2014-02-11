@@ -80,7 +80,7 @@ check_function_exists(fmodf							HAVE_FMODF)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config-cmake.h.in ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
-add_definitions(-DHAVE_CMAKE_CONFIG_H)
+add_definitions(-DHAVE_CONFIG_H)
 
 # ###########################################################################
 # ########## Global Libraries Deps
