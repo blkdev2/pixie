@@ -121,7 +121,7 @@ endif(INSTALL_SELFCONTAINED)
 
 
 # install doc
-set(doc_files AUTHORS ChangeLog COPYING DEVNOTES INSTALL LICENSE NEWS README)
+set(doc_files AUTHORS ChangeLog COPYING DEVNOTES LICENSE NEWS README)
 install(FILES ${doc_files} DESTINATION "${docdir}")
 
 # install man pages
