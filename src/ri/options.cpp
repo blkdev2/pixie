@@ -267,8 +267,9 @@ COptions::COptions() {
 	jitter					=	0.99f;
 
 	hider					=	strdup("stochastic");
-	
-#ifdef __APPLE__
+
+#if 0	
+//#ifdef __APPLE__
 	// Support for finding resources in Mac OS X bundles and standard Mac OS X file system locations
 	
 	// Find the application bundle's plug-in and Resources directory

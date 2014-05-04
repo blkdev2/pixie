@@ -33,14 +33,8 @@ endif(USE_FLEX_BISON)
 # ###########################################################################
 # ########## User Overridable Variables
 # ###########################################################################
-if(APPLE)
-	# this is required for Snow Leopard, gcc being configured as 64-bit by default
-	set(PIXIE_C_FLAGS "-arch i386" CACHE STRING "var")
-	set(PIXIE_CXX_FLAGS "-arch i386" CACHE STRING "var")
-else(APPLE)
-	set(PIXIE_C_FLAGS CACHE STRING "Pixie custom cflags")
-	set(PIXIE_CXX_FLAGS CACHE STRING "Pixie custom cxxflags")
-endif(APPLE)
+set(PIXIE_C_FLAGS CACHE STRING "Pixie custom cflags")
+set(PIXIE_CXX_FLAGS CACHE STRING "Pixie custom cxxflags")
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${PIXIE_C_FLAGS}" CACHE INTERNAL "Pixie custom cflags" FORCE)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${PIXIE_CXX_FLAGS}" CACHE INTERNAL "Pixie custom cxxflags" FORCE)
@@ -85,24 +79,13 @@ add_definitions(-DHAVE_CONFIG_H)
 # ###########################################################################
 # ########## Global Libraries Deps
 # ###########################################################################
-# Finding some dependency
-if(USE_STAGING_TIFF_LIB)
-	# on Apple systems, we can use the staging libs. Other option is to use macports / fink versions instead...
-	include_directories(xcode/PixieLibs/libtiff/STAGING/libtiff-i386/include)
-	find_library(pixietiff_lib pixietiff xcode/PixieLibs/libtiff/STAGING/libtiff NO_DEFAULT_PATH)
-	#message(STATUS "found ${pixietiff_lib}" )
-	find_library(pixietiffjpeg_lib jpeg xcode/PixieLibs/libtiff/STAGING/libjpeg/lib NO_DEFAULT_PATH)
-	#message(STATUS "found ${pixietiffjpeg_lib}" )
-	set(pixietiff_libs ${pixietiff_lib} ${pixietiffjpeg_lib})
-else(USE_STAGING_TIFF_LIB)
-	find_package(TIFF REQUIRED)
-	if(TIFF_FOUND)
-		include_directories(${TIFF_INCLUDE_DIR})
-		set(pixietiff_libs ${TIFF_LIBRARIES})
+find_package(TIFF REQUIRED)
+if(TIFF_FOUND)
+	include_directories(${TIFF_INCLUDE_DIR})
+	set(pixietiff_libs ${TIFF_LIBRARIES})
 	else(TIFF_FOUND)
 		message(FATAL_ERROR "Could not find TIFF library")
-	endif(TIFF_FOUND)
-endif(USE_STAGING_TIFF_LIB)
+endif(TIFF_FOUND)
 
 # ###########################################################################
 # ########## Installation of built products
